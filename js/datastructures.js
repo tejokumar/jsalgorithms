@@ -29,6 +29,28 @@
             return this.len;
         }
     };
+    //Stack With LinkedList
+    var StackWithLinkedList = function(){
+        this.first = null;
+    };
+    StackWithLinkedList.prototype = {
+        push:function(object){
+            var lList = new LinkeList(object);
+            lList.next = this.first;
+            this.first = lList;
+        },
+        pop:function(){
+            if(!this.first)return null;
+            var object = this.first.value;
+            this.first = this.first.next;
+            return object;
+        },
+        peek:function(){
+            if(!this.first)return null;
+            else return this.first.value;
+        }
+    };
+    
     
     //Queue
     var Queue = function(){
@@ -70,7 +92,33 @@
                 return this.len;
         }
     };
-    
+    //Queue with linkedlist
+    var QueueWithLinkedList = function(){
+        this.first =null;
+        this.last = null;
+    };
+    QueueWithLinkedList.prototype = {
+        add:function(object){
+            var lList = new LinkeList(object);
+            if(!this.last){
+                this.first = lList;
+                this.last = lList;
+            }else {
+                lList.next = this.last;
+                this.last = lList;
+            }
+        },
+        get:function(){
+            if(!this.first)return null;
+            var object = this.first.value;
+            this.first = this.first.next;
+            return object;
+        },
+        peek:function(){
+            if(!this.first)return null;
+            else return this.first.value;
+        }
+    };
     //Linked List
     var LinkeList = function(object){
         this.next = null;
@@ -115,6 +163,7 @@
     
     //Binary Tree
     var BinaryTree = function(object){
+        this.parent = null;
         this.left = null;
         this.right = null;
         this.value = object;
@@ -123,10 +172,12 @@
     BinaryTree.prototype = {
         addLeft:function(object){
             var bNode = new BinaryTree(object);
+            bNode.parent = this;
             this.left = bNode;
         },
         addRight:function(object){
             var bNode = new BinaryTree(object);
+            bNode.parent = this;
             this.right = bNode;
         },
         inorder:function(){
@@ -185,6 +236,66 @@
             }
         }
     };
+    
+    //Binary Search Tree
+    var BinarySearchTree = function(object){
+        BinaryTree.apply(this,arguments);
+    };
+    BinarySearchTree.prototype = new BinaryTree();
+    BinarySearchTree.prototype.search = function(object){
+        if(this.value == object)return this;
+        var tree;
+        if(object < this.value ){
+            tree = this.left;
+        }else
+            tree = this.right;
+        return tree ? tree.search(object) : null;
+    };
+    BinarySearchTree.prototype.add = function(object){
+        var currentNode = this;
+        var parentNode = this;
+        var isLeftNode = true;
+        while(currentNode != null){
+            parentNode = currentNode
+            if(object < currentNode.value){
+                isLeftNode = true;
+                currentNode = currentNode.left;
+            }else{
+                isLeftNode = false;
+                currentNode = currentNode.right;
+            }
+        }
+        if(isLeftNode)
+            parentNode.addLeft(object);
+        else
+            parentNode.addRight(object);
+    };
+    // Needs verification
+    BinarySearchTree.prototype.successor = function(object){
+        var treeNode = this.search(object);
+        if(treeNode.right == null)return treeNode;
+        var successor = treeNode.right;
+        var currentNode = successor;
+        while(currentNode != null){
+            successor = currentNode;
+            currentNode = successor.left;
+        }
+        return successor;
+    };
+    //Not complete
+    BinarySearchTree.prototype.delete = function(object){
+        var treeNode = this.search(object);
+        var successor = this.successor(object);
+        if(treeNode == successor){
+            if(treeNode == treeNode.parent.left)
+                treeNode.parent.left = null;
+            else
+                treeNode.parent.right = null;
+        }else {
+            treeNode.left = successor.left;
+        }
+        
+    };
     window.onload = function(){
         console.log("***********Stack********");
         var stack = new Stack();
@@ -238,5 +349,17 @@
         //binaryTree.breadthFirstTraversal();
         console.log("***********BinaryTree - DepthFirst********");
         binaryTree.depthFirstTraversal();
+        
+        console.log("***********Binary Search Tree********");
+        var binarySearchTree = new BinarySearchTree("5");
+        binarySearchTree.add("4");
+        binarySearchTree.add("8");
+        binarySearchTree.add("3");
+        binarySearchTree.add("7");
+        
+        //console.log("***********BinaryTree - BreadthFirst********");
+        //binarySearchTree.breadthFirstTraversal();
+        console.log("***********BinaryTree - DepthFirst********");
+        binarySearchTree.depthFirstTraversal();
     };
 })(this);

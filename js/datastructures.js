@@ -84,5 +84,28 @@
         binarySearchTree.delete("5");
         console.log("***********BinaryTree - DepthFirst - - Delete root node********");
         binarySearchTree.depthFirstTraversal();
+        
+        console.log("***********Heap - Min Value********");
+        var heap = new Heap();
+        heap.push(6);
+        heap.push(3);
+        heap.push(1);
+        heap.push(8);
+        heap.push(9);
+        heap.push(7);
+        
+        console.log("Min Value "+heap.topValue());
+        
+        console.log("***********Heap - Max Value********");
+        var heap = new Heap("MAX");
+        heap.push(6);
+        heap.push(3);
+        heap.push(1);
+        heap.push(8);
+        heap.push(9);
+        heap.push(7);
+        
+        heap.pop();
+        console.log("Max Value "+heap.topValue());
     };
 })(this);

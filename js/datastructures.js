@@ -242,6 +242,16 @@
         BinaryTree.apply(this,arguments);
     };
     BinarySearchTree.prototype = new BinaryTree();
+    BinarySearchTree.prototype.addLeft=function(object){
+        var bNode = new BinarySearchTree(object);
+        bNode.parent = this;
+        this.left = bNode;
+    };
+    BinarySearchTree.prototype.addRight=function(object){
+        var bNode = new BinarySearchTree(object);
+        bNode.parent = this;
+        this.right = bNode;
+    };
     BinarySearchTree.prototype.search = function(object){
         if(this.value == object)return this;
         var tree;
@@ -271,30 +281,41 @@
             parentNode.addRight(object);
     };
     // Needs verification
-    BinarySearchTree.prototype.successor = function(object){
-        var treeNode = this.search(object);
-        if(treeNode.right == null)return treeNode;
-        var successor = treeNode.right;
-        var currentNode = successor;
-        while(currentNode != null){
-            successor = currentNode;
-            currentNode = successor.left;
-        }
-        return successor;
+    BinarySearchTree.prototype.successor = function(){
+        if(this.right != null)
+            return this.right.minNode();
+        else
+            return this.parent;
     };
-    //Not complete
+    BinarySearchTree.prototype.minNode = function(){
+        if(this.left == null)
+            return this;
+        else
+            return this.left.minNode();
+    };
+    //Will not work if the value to be deleted is root  
     BinarySearchTree.prototype.delete = function(object){
-        var treeNode = this.search(object);
-        var successor = this.successor(object);
-        if(treeNode == successor){
-            if(treeNode == treeNode.parent.left)
-                treeNode.parent.left = null;
+        if(object < this.value){
+            if(this.left != null)
+                return this.left.delete(object);
             else
-                treeNode.parent.right = null;
+                return false;
+        }else if(object > this.value){
+            if(this.right != null)
+                return this.right.delete(object);
+            else
+                return false;
         }else {
-            treeNode.left = successor.left;
+            if(this.left != null && this.right != null){
+                this.value = this.successor().value;
+                this.right.delete(this.value);
+            }else if(this.parent.left == this){
+                this.parent.left = this.left ? this.left : this.right;
+            }else if(this.parent.right == this){
+                this.parent.right = this.left ? this.left : this.right;
+            }
+            return true;
         }
-        
     };
     window.onload = function(){
         console.log("***********Stack********");
@@ -360,6 +381,18 @@
         //console.log("***********BinaryTree - BreadthFirst********");
         //binarySearchTree.breadthFirstTraversal();
         console.log("***********BinaryTree - DepthFirst********");
+        binarySearchTree.depthFirstTraversal();
+        
+        console.log("***********Binary Search Tree2********");
+        binarySearchTree = new BinarySearchTree("5");
+        binarySearchTree.add("4");
+        binarySearchTree.add("8");
+        binarySearchTree.add("3");
+        binarySearchTree.add("7");
+        binarySearchTree.delete("8");
+        //console.log("***********BinaryTree - BreadthFirst********");
+        //binarySearchTree.breadthFirstTraversal();
+        console.log("***********BinaryTree - DepthFirst2********");
         binarySearchTree.depthFirstTraversal();
     };
 })(this);

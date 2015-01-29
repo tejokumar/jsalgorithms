@@ -54,7 +54,7 @@ BinarySearchTree.prototype.minNode = function(){
     else
         return this.left.minNode();
 };
-//Will not work if the value to be deleted is root  
+
 BinarySearchTree.prototype.delete = function(object){
     if(object < this.value){
         if(this.left != null)
@@ -70,6 +70,14 @@ BinarySearchTree.prototype.delete = function(object){
         if(this.left != null && this.right != null){
             this.value = this.successor().value;
             this.right.delete(this.value);
+        }else if(this.parent == null){
+            var dummyTree = new BinarySearchTree("0");
+            dummyTree.addLeft(this);
+            var result = dummyTree.delete(object);
+            this.value = dummyTree.left.value;
+            this.left = dummyTree.left.left;
+            this.right = dummyTree.left.right;
+            return result;
         }else if(this.parent.left == this){
             this.parent.left = this.left ? this.left : this.right;
         }else if(this.parent.right == this){

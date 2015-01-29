@@ -65,16 +65,24 @@
         console.log("***********BinaryTree - DepthFirst********");
         binarySearchTree.depthFirstTraversal();
         
-        console.log("***********Binary Search Tree2********");
+        console.log("***********Binary Search Tree - Delete some node********");
         binarySearchTree = new BinarySearchTree("5");
         binarySearchTree.add("4");
         binarySearchTree.add("8");
         binarySearchTree.add("3");
         binarySearchTree.add("7");
         binarySearchTree.delete("8");
-        //console.log("***********BinaryTree - BreadthFirst********");
-        //binarySearchTree.breadthFirstTraversal();
-        console.log("***********BinaryTree - DepthFirst2********");
+        console.log("***********BinaryTree - DepthFirst - - Delete some node********");
+        binarySearchTree.depthFirstTraversal();
+        
+        console.log("***********Binary Search Tree - Delete root node********");
+        binarySearchTree = new BinarySearchTree("5");
+        binarySearchTree.add("4");
+        binarySearchTree.add("8");
+        binarySearchTree.add("3");
+        binarySearchTree.add("7");
+        binarySearchTree.delete("5");
+        console.log("***********BinaryTree - DepthFirst - - Delete root node********");
         binarySearchTree.depthFirstTraversal();
     };
 })(this);

@@ -1,5 +1,28 @@
 (function(){
     window.onload = function(){
+        console.log("***********GraphNode********");
+        var graphnodeA = new GraphNode("A");
+        var graphnodeB = new GraphNode("B");
+        var graphnodeC = new GraphNode("C");
+        var graphnodeD = new GraphNode("D");
+        var graphnodeE = new GraphNode("E");
+        var graphnodeF = new GraphNode("F");
+        var graphnodeG = new GraphNode("G");
+        var graphnodeH = new GraphNode("H");
+        
+        graphnodeA.addAdjacentNode(graphnodeB);
+        graphnodeB.addAdjacentNode(graphnodeC);
+        graphnodeC.addAdjacentNode(graphnodeD);
+        graphnodeD.addAdjacentNode(graphnodeE);
+        graphnodeE.addAdjacentNode(graphnodeF);
+        graphnodeF.addAdjacentNode(graphnodeG);
+        graphnodeG.addAdjacentNode(graphnodeH);
+        graphnodeH.addAdjacentNode(graphnodeA);
+        
+        //console.log("***********Breadth First graph********");
+        //graphnodeA.breadthFirstTraversal();
+        console.log("***********Depth First graph********");
+        graphnodeA.depthFirstTraversal();
         console.log("***********Stack********");
         var stack = new Stack();
         stack.push("A");

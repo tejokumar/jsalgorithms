@@ -107,5 +107,39 @@
         
         heap.pop();
         console.log("Max Value "+heap.topValue());
+        
+        console.log("***********Priority Queue - With LinkedList********");
+        var pq = new PriorityQueue();
+        pq.enqueue("4");
+        pq.enqueue("3");
+        pq.enqueue("6");
+        pq.enqueue("9");
+        pq.enqueue("2");
+        pq.enqueue("11"); // This goes to the top as string coparison of "11" and "2" is < 0
+        
+        console.log("Priority Queue Middle Value "+pq.dequeue());
+        
+        pq.enqueue("1");
+        pq.enqueue("8");
+        
+        while(!pq.isEmpty()){
+            console.log("Priority Queue Value "+pq.dequeue());
+        }
+        
+        pq.enqueue(4);
+        pq.enqueue(3);
+        pq.enqueue(6);
+        pq.enqueue(9);
+        pq.enqueue(2);
+        pq.enqueue(11)
+        
+        console.log("Priority Queue Middle Number Value "+pq.dequeue());
+        
+        pq.enqueue(1);
+        pq.enqueue(8);
+        
+        while(!pq.isEmpty()){
+            console.log("Priority Queue Number Values "+pq.dequeue());
+        }
     };
 })(this);

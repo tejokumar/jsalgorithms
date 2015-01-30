@@ -37,10 +37,26 @@
         
         console.log("a="+a+" b="+b);
         
-        var arr = [3,2,1,5,7,4];
+        var arr = [3,2,1,5,7,4,9];
+        var arrForSelection = arr.slice(0);
+        var arrForInsertion = arr.slice(0);
+        var arrForMerge = arr.slice(0);
+        var arrForQuick = arr.slice(0);
+        
         console.log(arr);
-        //selectionSort(arr,6);
-        insertionSort(arr,6);
-        console.log(arr);
+        selectionSort(arrForSelection,6);
+        console.log("Selection Sort");
+        console.log(arrForSelection);
+        insertionSort(arrForInsertion,6);
+        console.log("Insertions Sort");
+        console.log(arrForInsertion);
+        
+        var mergeSort = new MergeSort(arrForMerge);
+        console.log("Merge Sort");
+        console.log(mergeSort.mergeSort());
+        
+        var quickSort = new QuickSort(arrForQuick);
+        console.log("Quick Sort");
+        console.log(quickSort.sort());
     }
 })(this);
